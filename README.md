@@ -69,3 +69,70 @@
 ### 扩展
 - [代码导出](https://selenium.dev/selenium-ide/docs/en/introduction/code-export)
 - [常见问题](https://selenium.dev/selenium-ide/docs/en/introduction/faq)
+
+## Web控件的交互进阶
+常用的操作事件（右键点击、页面滑动、表单操作等）
+
+### Actions
+- 官方文档：https://www.selenium.dev/selenium/docs/api/java/index.html
+- Actions:执行PC端的鼠标点击，双击，右键，拖拽等事件
+- TouchActions：模拟PC和移动端的点击，滑动，拖拽，多点触控等多种手势操作
+
+#### Actions方法列表
+- Actions类是selenium对鼠标、键盘操作的
+- 常用的操作包括：
+    - click——单击鼠标左键
+    - click_and_hold——点击鼠标左键，不松开
+    - context_click——点击鼠标右键
+    - double_click——双击鼠标左键
+    - drag_and_drop——拖拽到某个元素到目标位置后松开
+    - drag_and_drop_by_offset——拖拽到某个坐标然后松开
+    - move_by_offset——鼠标从当前位置移动到某个坐标
+    - move_to_element——鼠标移动到某个元素
+    - move_to_element_with_offset——移动到距某个元素（左上角坐标）多少距离的位置
+    - perform()——执行链中的所有动作
+    - releas——在某个元素位置松开左键
+    - send_keys——发送某个键到当前焦点的元素
+    - key_down——按下某个键盘上的键
+    - key_up——松开某个键
+
+#### 动作链接Actions
+- 执行原理：
+    - 调用Action是的方法，不会立即执行，而是将所有的操作，按顺序存放在一个队列里，当调用perform()方法时，队列中事件会依次执行
+- 基本用法
+    - 生成一个动作Actions actions = new Actions(driver)
+    - 动作添加方法1 actions.方法1
+    - 动作添加方法2 actions.方法2
+    - 调用perform()方法执行actions.perform()
+
+#### Actions具体写法
+- 链式写法
+```
+Actions actions = new Actions(driver).moveToElement(ele).click().perform(ele);
+```
+- 分布写法
+```
+Actions actions = new Actions(driver);
+actions.move_to_element(ele);
+actions.click(element);
+actions.perform();
+```
+#### Actions模拟按键方法
+- 模拟按键有多种方法，能用win32api来实现，能用SendKeys来实现，也可以用selenium的WebElement对象的send_keys()方法来实现，这里Actions类也提供了几个模拟按键的方法
+- 用法
+```
+Actions actions = Actions(driver);
+actions.send_keys(Keys.BACK_SPACE);
+或者
+actions.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL);
+actions.perform();
+```
+
+### 多窗口处理
+- 点某些连接，会重新打开一个窗口，对于这种情况，想在新页面上操作，就得先切换窗口了
+- 获取窗口的唯一标识用句柄表示，所以只需要切换句柄，就可以在多个页面灵活操作了
+
+#### 多窗口处理流程
+1. 先获取到当前的窗口句柄（driver.getWindowHandle()）
+2. 再获取到所有的窗口句柄（driver.getWindowHandles）
+3. 判断是否是想要操作的窗口，如果是，就可以对窗口进行操作，如果不是跳转到另一个窗口，对另一个窗口进行操作（driver.switchTo().window(name)）
