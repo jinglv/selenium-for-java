@@ -42,14 +42,17 @@
     - [官方网站](https://www.selenium.dev/)
     
 ## Selenium架构图
-![image](image/selenium架构图.png)
+![image-20201018213344645](https://gitee.com/JeanLv/study_image2/raw/master///image-20201018213344645.png)
 
 ## Driver的配置
 - Driver的介绍
+  
     - [Driver的介绍](https://www.selenium.dev/documentation/en/webdriver/driver_requirements/)
+    
 - Driver的下载
     - [淘宝镜像](https://npm.taobao.org/mirrors/chromedriver)
     - [官方网站](https://chromedriver.storage.googleapis.com/index.html)
+    
 - Driver的安装
     - 找到与自己本机浏览器适配的driver版本http://chromedriver.chromium.org/downloads/version-selection
     - 导入环境变量中
@@ -57,8 +60,17 @@
     # chromedrvier
     export PATH="$PATH:/Users/apple/Documents/webdriver" # chromedriver下载放置的目录
     ```
+    
+    - 代码中使用
+    
+    ```java
+    
+    ```
+    
+    
 
 ## Selenium IDE
+
 ### 下载及安装
 - [官网](https://www.selenium.dev)
 - [Chrome插件](https://chrome.google.com/webstore/detail/selenium-ide/mooikfkahbdckldjjndioackbalphokd)
@@ -73,25 +85,39 @@
     - Chrome:chrome://extensions
     - Firefox:about:addons
 
+
+
 ### 录制第一个用例
-- 创建新项目后，系统将提示为其命名
+
+- 启动Selenium IDE后，创建新项目，系统将提示为其命名
+
 - 然后要求提供URL：要录制测试脚本的网站URL。设置一次就可以在整个项目的所有测试中使用
+
 - 在页面的操作都将记录在IDE中。操作完成后，请切换到IDE窗口，并单击[停止]录制图标
+
 - 停止后，为刚录制的Test取名
-    
+  
 ### IDE的使用
-![image](image/selenium ide.png)
+
+![image-20201018215240244](https://gitee.com/JeanLv/study_image2/raw/master///image-20201018215240244-20201018220709144.png)
+
+![image-20201018215437269](https://gitee.com/JeanLv/study_image2/raw/master///image-20201018215437269-20201018220732067.png)
+
+![image-20201018221421702](https://gitee.com/JeanLv/study_image2/raw/master///image-20201018221421702.png)
 
 1. 新建、保存、打开
 2. 开始和停止录制
 3. 运行8中的所有的实例
 4. 运行单个实例
-5. 调试模式
+5. 调试模式--单步执行当前选中的测试用例
 6. 调整案例的运行速度
 7. 要录制的网址
 8. 实例列表
 9. 动作、目标、值
 10. 对单条命令的解释
+    - Command：显示操作命令名称
+    - Target：显示被操作页面元素的ID、Name、Css或者Xpath定位语句
+    - Value：显示本行要操作使用的内容
 11. 运行日志
 
 ### 管理用例
@@ -106,7 +132,28 @@
 - [代码导出](https://selenium.dev/selenium-ide/docs/en/introduction/code-export)
 - [常见问题](https://selenium.dev/selenium-ide/docs/en/introduction/faq)
 
+
+
+## 页面元素的定位方法
+
+Webdriver提供了findElement和findElements函数进行单个元素和一组元素的定位
+
+| 定位方法         | 定位方法的Java语言实现实例                                   |
+| ---------------- | ------------------------------------------------------------ |
+| id定位           | Driver.findElement(By.id("属性id的值"));                     |
+| name定位         | Driver.findElement(By.name("属性name的值"));                 |
+| link的全文字定位 | Driver.findElement(By.linkText("链接的全部文字内容"));       |
+| link部分文字定位 | Driver.findElement(By.partialLinkText("链接的部分文字内容")); |
+| 标签名定位       | Driver.findElement(By.tagName("页面中的HTML标签名称"));      |
+| class名称定位    | Driver.findElement(By.className("页面中的Class标签名称"));   |
+| xpath方式定位    | Driver.findElement(By.xpath("Xpath定位表达式"));             |
+| css方式定位      | Driver.findElement(By.cssSelector("Css定位表达式"));         |
+| jQuery定位       | js.executeScript("return jQurey.find('jQurey定位表达式')");  |
+
+
+
 ## Web控件的交互进阶
+
 常用的操作事件（右键点击、页面滑动、表单操作等）
 
 ### Actions
