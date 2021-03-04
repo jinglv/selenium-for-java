@@ -13,12 +13,11 @@ import org.junit.jupiter.api.Test;
  */
 public class TestContact {
 
-    private static MainPage mainPage;
     private static ContactPage contactPage;
 
     @BeforeAll
     static void start() {
-        mainPage = new MainPage();
+        MainPage mainPage = new MainPage();
         contactPage = mainPage.toContact();
     }
 
